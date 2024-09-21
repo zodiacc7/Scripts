@@ -114,3 +114,49 @@ function clickButton(bp) {
 
     }
 }
+function touch(bp) {
+    const minDelay = 40;
+    const maxDelay = 130;
+    const delay = 100;
+    const button = document.querySelector(bp);
+    const rect = button.getBoundingClientRect();
+    function getRandomCoordinate(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+    const x = getRandomCoordinate(rect.left, rect.right);
+    const y = getRandomCoordinate(rect.top, rect.bottom);
+    if (typeof TouchEvent === 'function') {
+        try {
+            const touchObj = new Touch({
+                identifier: Date.now(),
+                target: button,
+                clientX: x,
+                clientY: y,
+                radiusX: 2.5,
+                radiusY: 2.5,
+                rotationAngle: 10,
+                force: 0.5,
+            });
+
+            const touchStartEvent = new TouchEvent("touchstart", {
+                cancelable: true,
+                bubbles: true,
+                touches: [touchObj],
+                targetTouches: [touchObj],
+                changedTouches: [touchObj],
+            });
+
+            button.dispatchEvent(touchStartEvent);
+            setTimeout(() => {
+                const touchEndEvent = new TouchEvent("touchend", {
+                    cancelable: true,
+                    bubbles: true,
+                    touches: [],
+                    targetTouches: [],
+                    changedTouches: [touchObj],
+                });
+                button.dispatchEvent(touchEndEvent);
+            }, delay);
+        } catch (error) {;}
+    }
+}
