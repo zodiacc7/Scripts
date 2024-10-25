@@ -90,7 +90,7 @@ function clickButton(bp) {
         const commonProperties = {
             bubbles: true,
             cancelable: true,
-            view: window,
+            //view: window,
             clientX: clientX,
             clientY: clientY,
             screenX: clientX,
