@@ -6,7 +6,7 @@ function clickIfElementExists(query, timeInSec = 1, funcName = 'setTimeout') {if
 function Captchacheck() {
     let captchaOK = true;
     if (elementExists('.h-captcha') || elementExists('#captcha-hcaptcha')) captchaOK = unsafeWindow.hcaptcha.getResponse().length !== 0;
-    else if (unsafeWindow.turnstile || elementExists('.cf-turnstile') || elementExists('#captcha-turnstile')) captchaOK = unsafeWindow.turnstile.getResponse().length !== 0;
+    else if (unsafeWindow.turnstile || elementExists('.cf-turnstile') || elementExists('#captcha-turnstile')) captchaOK = !!unsafeWindow.turnstile.getResponse();
     else if (elementExists('.g-recaptcha') || elementExists('#captchaShortlink') || elementExists('#captcha_container') || elementExists('#captchaShortlinker') || elementExists('#captcha-recaptcha')) captchaOK = unsafeWindow.grecaptcha.getResponse().length !== 0;
     else if (elementExists('#iconcaptcha')) captchaOK = elementExists('.iconcaptcha-holder.iconcaptcha-theme-light.iconcaptcha-success');
     if (captchaOK && elementExists(".rscaptcha")) return !elementExists(".rscaptcha .dot[style='display:none;']") && !elementExists(".captcha-error");
