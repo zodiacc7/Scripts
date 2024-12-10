@@ -40,7 +40,7 @@ function Checkvisibility(query) {
     return true;
 }
 function clickIfElementvisibile(query, timeInSec = 1, funcName = 'setTimeout') {if (Checkvisibility(query)) {window[funcName](function() {click(query);}, timeInSec * 1000);}}
-function clickBytext(query,text) {Array.from(document.querySelectorAll(query)).find((el) => el.textContent.includes(text))?.click();}
+function clickBytext(text,query = 'button') {Array.from(document.querySelectorAll(query)).find((el) => el.textContent.includes(text))?.click();}
 function Captchasub(query, act = 'submit', timeInSec = 0.5) {
     if (elementExists(query)) {var timer = setInterval(function() {
         if (Captchacheck()) {bp(query)[act]();clearInterval(timer);}}, timeInSec * 1000);}}
