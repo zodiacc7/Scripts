@@ -40,7 +40,11 @@ function Checkvisibility(query) {
     return true;
 }
 function clickIfElementvisibile(query, timeInSec = 1, funcName = 'setTimeout') {if (Checkvisibility(query)) {window[funcName](function() {click(query);}, timeInSec * 1000);}}
-function clickBytext(text,query = 'button') {Array.from(document.querySelectorAll(query)).find((el) => el.textContent.includes(text))?.click();}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function tiq(text,query = 'button'){return Array.from(document.querySelectorAll(query)).find((el) => el.textContent.includes(text));}//text in query
+function tmq(text,query = 'button'){return Array.from(document.querySelectorAll(query)).find((el) => el.textContent.match(text));}//text match in query
+function clickBytext(text,query = 'button') {tiq(text,query)?.click();}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function Captchasub(query, act = 'submit', timeInSec = 0.5) {
     if (elementExists(query)) {var timer = setInterval(function() {
         if (Captchacheck()) {bp(query)[act]();clearInterval(timer);}}, timeInSec * 1000);}}
