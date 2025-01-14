@@ -41,6 +41,8 @@ function Checkvisibility(query) {
 }
 function clickIfElementvisibile(query, timeInSec = 1, funcName = 'setTimeout') {if (Checkvisibility(query)) {window[funcName](function() {click(query);}, timeInSec * 1000);}}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function qint(query,regex = /(.*)/g) {return parseInt(document.querySelector(query)?.textContent.match(regex)[0]);}//text to int
+function qfloat(query,regex = /(.*)/g) {return parseFloat(document.querySelector(query)?.textContent.match(regex)[0]);}//text to float
 function tiq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => el.textContent.includes(text));}//text in query
 function tmq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => el.textContent.match(text));}//text match in query
 function clickBytext(text,query = 'button:enabled') {tiq(text,query)?.click();}
