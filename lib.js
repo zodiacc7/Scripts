@@ -44,10 +44,7 @@ function clickIfElementvisibile(query, timeInSec = 1, funcName = 'setTimeout') {
 function timertosec(query) {
     if (!bp(query)) return 0;
     return bp(query).textContent?.replace(/[^\d:]/g, '').split(':').map(Number).reduceRight((seconds, v, i, arr) => seconds + v * Math.pow(60, arr.length - 1 - i), 0);}
-function findElement(txt) {
-    const elements = document.querySelectorAll('*');
-    const isRegex = txt instanceof RegExp;
-    return Array.from(elements).find(el => {return (isRegex ? txt.test(el.textContent) : el.textContent.includes(txt)) && el.children.length === 0;});}
+const findElement = txt => Array.from(document.querySelectorAll('*')).find(el => {return (txt instanceof RegExp ? el.textContent.match(txt) : el.textContent.includes(txt)) && el.children.length === 0;});
 function qint(query,regex = /(.*)/g) {return parseInt(bp(query)?.textContent.match(regex)[0]);}//text to int
 function qfloat(query,regex = /(.*)/g) {return parseFloat(bp(query)?.textContent.match(regex)[0]);}//text to float
 function tiq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => txt instanceof RegExp ? el.textContent.match(text):el.textContent.includes(text));}//text in query
