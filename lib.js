@@ -41,7 +41,6 @@ function Checkvisibility(query) {
 }
 function clickIfElementvisibile(query, timeInSec = 1, funcName = 'setTimeout') {if (Checkvisibility(query)) {window[funcName](function() {click(query);}, timeInSec * 1000);}}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function timertosec(query) {
     if (!bp(query)) return 0;
     return bp(query).textContent?.replace(/[^\d:]/g, '').split(':').map(Number).reduceRight((seconds, v, i, arr) => seconds + v * Math.pow(60, arr.length - 1 - i), 0);}
