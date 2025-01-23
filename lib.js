@@ -1,4 +1,4 @@
-const bp = query => document.querySelector(query);
+const bp = query => query instanceof Element ? query : document.querySelector(query);
 const elementExists = query => bp(query) !== null;
 function captchaExists() {return (!!unsafeWindow.grecaptcha || !!unsafeWindow.turnstile || elementExists(".rscaptcha") || elementExists("#gpcaptcha") || elementExists(('[action*="/verify"] input[type="number"],[action*="/verify"] input[type="text"]')));}
 function click(query) {bp(query)?.click();}
@@ -42,13 +42,15 @@ function Checkvisibility(query) {
 function clickIfElementvisibile(query, timeInSec = 1, funcName = 'setTimeout') {if (Checkvisibility(query)) {window[funcName](function() {click(query);}, timeInSec * 1000);}}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function timertosec(query) {
-    const element = typeof query === 'string' ? document.querySelector(query) : (query instanceof Element ? query : null);
-    if (!element) return 0;
-    return element.textContent?.replace(/[^\d:]/g, '').split(':').map(Number).reduceRight((seconds, v, i, arr) => seconds + v * Math.pow(60, arr.length - 1 - i), 0);}
-function qint(query,regex = /(.*)/g) {return parseInt(document.querySelector(query)?.textContent.match(regex)[0]);}//text to int
-function qfloat(query,regex = /(.*)/g) {return parseFloat(document.querySelector(query)?.textContent.match(regex)[0]);}//text to float
-function tiq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => el.textContent.includes(text));}//text in query
-function tmq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => el.textContent.match(text));}//text match in query
+    if (!bp(query)) return 0;
+    return bp(query).textContent?.replace(/[^\d:]/g, '').split(':').map(Number).reduceRight((seconds, v, i, arr) => seconds + v * Math.pow(60, arr.length - 1 - i), 0);}
+function findElement(txt) {
+    const elements = document.querySelectorAll('*');
+    const isRegex = txt instanceof RegExp;
+    return Array.from(elements).find(el => {return (isRegex ? txt.test(el.textContent) : el.textContent.includes(txt)) && el.children.length === 0;});}
+function qint(query,regex = /(.*)/g) {return parseInt(bp(query)?.textContent.match(regex)[0]);}//text to int
+function qfloat(query,regex = /(.*)/g) {return parseFloat(bp(query)?.textContent.match(regex)[0]);}//text to float
+function tiq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => txt instanceof RegExp ? el.textContent.match(text):el.textContent.includes(text));}//text in query
 function clickBytext(text,query = 'button:enabled') {tiq(text,query)?.click();}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function Captchasub(query, act = 'submit', timeInSec = 0.5) {
