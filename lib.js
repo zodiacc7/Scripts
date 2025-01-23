@@ -47,7 +47,7 @@ function timertosec(query) {
 const findElement = txt => Array.from(document.querySelectorAll('*')).find(el => {return (txt instanceof RegExp ? el.textContent.match(txt) : el.textContent.includes(txt)) && el.children.length === 0;});
 function qint(query,regex = /(.*)/g) {return parseInt(bp(query)?.textContent.match(regex)[0]);}//text to int
 function qfloat(query,regex = /(.*)/g) {return parseFloat(bp(query)?.textContent.match(regex)[0]);}//text to float
-function tiq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => txt instanceof RegExp ? el.textContent.match(text):el.textContent.includes(text));}//text in query
+function tiq(text,query = 'button:enabled'){return Array.from(document.querySelectorAll(query)).find((el) => text instanceof RegExp ? el.textContent.match(text):el.textContent.includes(text));}//text in query
 function clickBytext(text,query = 'button:enabled') {tiq(text,query)?.click();}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function Captchasub(query, act = 'submit', timeInSec = 0.5) {
